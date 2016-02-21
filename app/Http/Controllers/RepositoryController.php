@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\GitStash\JamesWebHook;
 use App\Repository;
 use Illuminate\Http\Request;
 use Validator;
@@ -9,6 +10,14 @@ use App\Http\Requests;
 
 class RepositoryController extends Controller
 {
+
+    protected $hook;
+
+    public function __construct(JamesWebHook $hook)
+    {
+        $this->hook = $hook;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -49,6 +58,8 @@ class RepositoryController extends Controller
         $repo = Repository::create(['github_id' => $github_id]);
         $repo = $repo->fresh();
 
+        // $this->hook->post($repo);
+
         return $repo;
     }
 
@@ -74,6 +85,8 @@ class RepositoryController extends Controller
     {
         $repository->fill($request->all());
         $repository->save();
+
+        // $this->hook->post($repository);
 
         return $repository;
     }
