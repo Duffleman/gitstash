@@ -15,7 +15,7 @@ class CreateRepositoriesTable extends Migration
         Schema::create('repositories', function (Blueprint $table) {
             $table->increments('id');
             $table->text('github_id')->index();
-            $table->enum('status', ['new', 'synced', 'syncing', 'deleted'])->default('new')->index();
+            $table->enum('status', ['new', 'synced', 'syncing', 'deleted', 'error'])->default('new')->index();
             $table->boolean('enabled')->index();
             $table->timestamps();
         });
