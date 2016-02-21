@@ -46,7 +46,10 @@ class RepositoryController extends Controller
             return $this->update($request, $repo);
         }
 
-        return Repository::create(['github_id' => $github_id]);
+        $repo = Repository::create(['github_id' => $github_id]);
+        $repo = $repo->fresh();
+
+        return $repo;
     }
 
     /**
